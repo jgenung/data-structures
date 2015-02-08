@@ -1,8 +1,34 @@
+/*
+ * Stack Prototypal Instantiation
+ */
 var Stack = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+
+  var newStack = Object.create(stackMethods);
+  newStack._storage = {};
+  newStack._top = 0;
+
+  return newStack;
+
 };
 
-var stackMethods = {};
+var stackMethods = {
+
+  push: function(value){
+    this._storage[++this._top] = value;
+  },
+
+  pop: function(){
+    var temp = this._storage[this._top];
+    if(this._top > 0){
+      delete this._storage[this._top--];
+    }
+    return temp;
+  },
+
+  size: function(){
+    return this._top;
+  }
+
+};
 
 

@@ -1,6 +1,25 @@
+/*
+ * Stack Pseudoclassical Instantiation
+ */
 var Stack = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+  this._storage = {};
+  this._top = 0;
+};
+
+Stack.prototype.push = function(value){
+  this._storage[++this._top] = value;
+};
+
+Stack.prototype.pop = function(){
+  var temp = this._storage[this._top];
+  if(this._top > 0){
+    delete this._storage[this._top--];
+  }
+  return temp;
+};
+
+Stack.prototype.size = function(){
+  return this._top;
 };
 
 

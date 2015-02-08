@@ -1,29 +1,25 @@
+/*
+ * Stack Functional Instantiation
+ */
 var Stack = function(){
   var someInstance = {};
-
-  // Use an object with numeric keys to store values
   var storage = {};
+  var top = 0;
 
-  var length = 0;
-
-  // Implement the methods below
   someInstance.push = function(value){
-    storage[length] = value;
-    length++;
+    storage[++top] = value;
   };
 
   someInstance.pop = function(){
-    if(length != 0)
-    {
-        var popVar = storage[length-1];
-        delete storage[length-1];
-        length--;
-        return popVar;
+    var popVar = storage[top];
+    if(top > 0){
+        delete storage[top--];
     }
+    return popVar;
   };
 
   someInstance.size = function(){
-    return length;
+    return top;
   };
 
   return someInstance;
