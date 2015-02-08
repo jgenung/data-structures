@@ -2,45 +2,33 @@
  * Queue Functional Instantiation with Shared Methods
  */
 var Queue = function(){
-    var newQueue = {};
-    newQueue.newStorage = {};
-    newQueue.length = 0;
-    extend(newQueue,queueMethods);
-    return newQueue;
-};
+  var newQueue = {};
+  newQueue._storage = {};
+  newQueue._start = 0;
+  newQueue._end = 0;
 
-var extend = function(to, from){
-  for(var key in from){
-    to[key] = from[key];
-  }
+  newQueue.enqueue = queueMethods.enqueue;
+  newQueue.dequeue = queueMethods.dequeue
+  newQueue.size = queueMethods.size;
+
+  return newQueue;
 };
 
 var queueMethods = {};
 
-queueMethods.enqueue = function(value)
-{
-    var temp;
-    for(var i=0; i<this.length+1;i++)
-    {
-        temp = this.newStorage[i];
-        this.newStorage[i] = value;
-        value = temp;
-    }
-    this.length++;
+queueMethods.enqueue = function(value){
+  this._storage[this._end++] = value;
 };
 
 queueMethods.dequeue = function()
 {
-    if(this.length>0)
-    {
-        var temp = this.newStorage[this.length-1];
-        delete this.newStorage[this.length-1];
-        this.length--;
-        return temp;
-
-    }
+  var temp = this._storage[this._start];
+  if(this.size()){
+    delete this._storage[this._start++];
+  }
+  return temp;
 };
 queueMethods.size = function(){
-    return this.length;
+  return this._end-this._start;
 };
 

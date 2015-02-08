@@ -2,30 +2,25 @@
  * Queue Pseudoclassical Instantiation
  */
 var Queue = function() {
-  this.storage = {};
-  this.length = 0;
+  this._storage = {};
+  this._start = 0;
+  this._end = 0;
 };
 
 Queue.prototype.enqueue = function(value){
-  for(var i = 0; i < this.length+1; i++){
-    var temp = this.storage[i];
-    this.storage[i] = value;
-    value = temp;
-  }
-  this.length++;
+  this._storage[this._end++] = value;
 };
 
 Queue.prototype.dequeue = function(){
-  var temp = this.storage[this.length-1];
-  if(this.length > 0){
-    delete this.storage[this.length-1];
-    this.length--;
-    return temp;
+  var temp = this._storage[this._start];
+  if(this.size()){
+    delete this._storage[this._start++];
   }
+  return temp;
 };
 
 Queue.prototype.size = function(){
-  return this.length;
+  return this._end-this._start;
 };
 
 
